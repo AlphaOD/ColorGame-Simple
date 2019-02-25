@@ -1,6 +1,6 @@
-.span {
-  width: 140px;
-  height: 300px;
+span {
+  width: 80%;
+  height: 90%;
   border: 1px solid #c3c3c3;
   display: -webkit-flex;
   display: flex;
