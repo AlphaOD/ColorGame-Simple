@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Box from "./Box/Box.js";
 import "./styles.css";
-import Popup from "reactjs-popup";
+
 import AlertTrue from "./Alert/AlertTrue";
 import AlertFalse from "./Alert/AlertFalse";
 import Button from "react-bootstrap/Button";
