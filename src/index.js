@@ -6,6 +6,7 @@ import Popup from "reactjs-popup";
 import AlertTrue from "./Alert/AlertTrue";
 import AlertFalse from "./Alert/AlertFalse";
 import Button from "react-bootstrap/Button";
+
 const localStorage = window.localStorage;
 /*function getRandomList(i) {
   var arr = [];
@@ -221,6 +222,7 @@ class App extends React.Component {
 //https://github.com/chadly/react-bs-notifier
 //https://www.npmjs.com/package/reactjs-popup
 //https://react-dropzone.js.org/
+//https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/
 //http://woodphoriaky.com/wp-content/uploads/2018/05/alpha-logo-design-alpha-logo-rose-liang-dribbble-template.png
 //chrome-extension://klbibkeccnjlkjkiokjodocebajanakg/suspended.html#ttl=Responsive%20Data%20Tables%20%7C%20CSS-Tricks&pos=3067&uri=https://css-tricks.com/responsive-data-tables/
 const rootElement = document.getElementById("root");

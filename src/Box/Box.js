@@ -12,7 +12,7 @@ const Box = props => {
   };
   return (
     <span
-      class="shadow p-5 mb-10 rounded border-1"
+      className="shadow p-5 mb-10 rounded border-1"
       key={props.id}
       style={style}
       onClick={props.click}
