@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Nav from "./NavBar";
 import App from "./App";
+
 //https://codesandbox.io/embed/p2wqnk3zqj
 //https://react-bootstrap.github.io/components/alerts/#alert-props
 //http://bvaughn.github.io/react-virtualized/#/components/List
