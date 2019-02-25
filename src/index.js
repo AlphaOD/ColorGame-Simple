@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Box from "./Box/Box.js";
 import "./styles.css";
-
+import Nav from "./Nav";
 import AlertTrue from "./Alert/AlertTrue";
 import AlertFalse from "./Alert/AlertFalse";
 import Button from "react-bootstrap/Button";
@@ -68,20 +68,20 @@ function random(i) {
         id: i,
         red: Math.abs(
           getRandomInt(
-            array[0].red - getRandomInt(12, 70),
-            array[0].red + getRandomInt(4, 50)
+            array[0].red - getRandomInt(1, 70),
+            array[0].red + getRandomInt(15, 50)
           )
         ),
         blue: Math.abs(
           getRandomInt(
-            array[0].blue - getRandomInt(12, 70),
-            array[0].blue + getRandomInt(4, 50)
+            array[0].blue - getRandomInt(60, 70),
+            array[0].blue + getRandomInt(12, 50)
           )
         ),
         green: Math.abs(
           getRandomInt(
-            array[0].green - getRandomInt(12, 70),
-            array[0].green + getRandomInt(4, 50)
+            array[0].green - getRandomInt(50, 70),
+            array[0].green + getRandomInt(1, 15)
           )
         ),
         T: "Wrong one try again"
@@ -90,8 +90,8 @@ function random(i) {
   }
   return shuffle(array); //shuffling it all because they all depend on the index 0
 }
-const V = getRandomInt(0, 4);
-function set() {
+var V = getRandomInt(0, 4);
+function set(V) {
   const array = random(5); //main function creating the colors
   console.log(array); //Random Value for success check
   array[V].T = true;
@@ -109,7 +109,7 @@ if (localStorage.getItem("mycat") === null) {
   localStorage.setItem("myCat", cat);
   console.log(localStorage.getItem("mycat"));
 }
-var array = set();
+var array = set(V);
 
 class App extends React.Component {
   state = {
@@ -118,15 +118,23 @@ class App extends React.Component {
     alert: null,
     error: false,
     score: localStorage.getItem("mycat"),
-    current: 5
+    current: 5,
+    success: 0,
+    click: 0,
+    ratio: 0
   };
 
   OnClickListener = index => {
+    this.setState({ click: this.state.click + 1 });
+
     if (this.state.alert) {
       console.log("Cheater");
     } else if (!this.state.alert) {
+      this.setState({ ratio: this.state.success / this.state.click });
       if (index === this.state.Value) {
         this.setState({ alert: true });
+        this.setState({ success: this.state.success + 1 });
+        this.setState({ ratio: this.state.success / this.state.click });
         console.log(this.state.Value);
         console.log("Right");
         localStorage.setItem("myCat", this.state.score + this.state.current);
@@ -141,14 +149,18 @@ class App extends React.Component {
   };
 
   randomCall = () => {
-    var array = set();
+    var V = getRandomInt(0, 4); //set new index tampon
+    var array = set(V);
     var state = {
       Color: array,
       Value: V,
       alert: null,
       error: false,
       score: this.state.score + this.state.current,
-      current: 5
+      current: 5,
+      success: this.state.success,
+      click: this.state.click,
+      ratio: this.state.ratio
     };
     this.setState(state);
     console.log("rerender");
@@ -178,7 +190,7 @@ class App extends React.Component {
     BoxJs = (
       <div>
         {this.state.Color.map((color, index) => (
-          <td classname="td " key={color.id}>
+          <td className="td " key={color.id}>
             <Box
               key={color.id}
               red={color.red}
@@ -193,12 +205,20 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <h1>Welcome to the color</h1>
-        <h2>
+        <h1>
+          Welcome to the AlphaColors
+          <br />
+        </h1>
+        <div>Your ratio is {this.state.ratio}</div>
+        <h3>
           The Color needed is RGB({this.state.Color[this.state.Value].red},
-          {this.state.Color[this.state.Value].blue},
-          {this.state.Color[this.state.Value].green})
-        </h2>
+          {this.state.Color[this.state.Value].green},
+          {this.state.Color[this.state.Value].blue})
+        </h3>
+        Possible +score{" "}
+        <a href="#" className="alert-link">
+          {this.state.current}
+        </a>
         <div className="alert alert-primary" role="alert">
           Your Score is
           <br />
@@ -207,7 +227,7 @@ class App extends React.Component {
           </a>
         </div>
         {Alert}
-        <table className="table" class="table">
+        <table className="table">
           <tr className="tr">{BoxJs}</tr>
         </table>
       </div>
@@ -222,8 +242,11 @@ class App extends React.Component {
 //https://github.com/chadly/react-bs-notifier
 //https://www.npmjs.com/package/reactjs-popup
 //https://react-dropzone.js.org/
+//https://mdbootstrap.com/docs/react/getting-started/download/
 //https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/
 //http://woodphoriaky.com/wp-content/uploads/2018/05/alpha-logo-design-alpha-logo-rose-liang-dribbble-template.png
 //chrome-extension://klbibkeccnjlkjkiokjodocebajanakg/suspended.html#ttl=Responsive%20Data%20Tables%20%7C%20CSS-Tricks&pos=3067&uri=https://css-tricks.com/responsive-data-tables/
+const Navi = document.getElementById("Nav");
+ReactDOM.render(<Nav />, Navi);
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
